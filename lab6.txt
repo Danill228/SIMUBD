@@ -1,0 +1,59 @@
+1.
+db.towns.insert({name: "New York",  populatiuon: 22200000,  last_sensus: ISODate("2022-07-31"),  famous_for: ["status of liberty", "food"],  mayor: {    name: "Michael Bloomberg",  party: "I"}})
+dn.towns.insert({name: "Portland",  populatiuon: 528000,  last_sensus: ISODate("2022-07-20"),  famous_for: ["beer", "food"],  mayor: {    name: "Sam Adams",  party: "D"}})
+db.towns.insert({name: "Portland", populatiuon: 528000, last_sensus: ISODate("2022-07-20"), famous_for: ["beer", "food"], mayor: { name: "Sam Adams", party: "D"}})
+
+db.towns.find({"mayor.party": 'I'}, {name: 1, "mayor.name": 1, _id: 0})
+
+db.towns.find({"mayor.party": {$exists: false}}, {name: 1, "mayor.name": 1, _id: 0})
+
+2.
+function foo() {return {gender: 'm'}}
+db.unicorns.find(foo())
+
+var cursor = db.unicorns.find(foo());null;
+cursor.sort({name: 1}).limit(2);null;
+cursor.forEach(function(obj){ print(obj); })
+
+3.
+db.unicorns.find({gender: 'f', weight: {$gt: 500, $lt: 600}}).count()
+
+4.
+db.unicorns.distinct('loves')
+
+5.
+db.unicorns.aggregate({$group: {_id:'$gender', count: {$sum:1}}})
+
+6.
+db.unicorns.insertOne({name: 'Barny', loves: ['grape'], weight: 340, gender: 'm'})
+
+7.
+db.unicorns.update({name: 'Ayna'}, {$set: {weight: 800, vampires: 51}}, {upsert: true})
+
+8.
+db.unicorns.update({name: 'Raleigh'}, {$set: {loves: 'Redbool'}}, {upsert: false})
+
+9.
+db.unicorns.update({gender: 'm'}, {$inc: {vampires: 5}}, {multi: true})
+
+10.
+db.towns.update({name: 'Portland'}, {$unset: {"mayor.party": 1}})
+
+11.
+db.unicorns.update({name: 'Pilot'}, {$push: {loves: 'chocolate'}})
+
+12.
+db.unicorns.update({name: 'Aurora'}, {$addToSet: {loves: {$each: ['sugar', 'lemon']}}})
+
+13.
+db.towns.drop()
+db.towns.insert({name: "Punxsutawney ", popujatiuon: 6200, last_sensus: ISODate("2022-01-31"), famous_for: ["phil the groundhog"], mayor: { name: "Jim Wehrle" }})
+db.towns.insert({name: "New York", popujatiuon: 22200000, last_sensus: ISODate("2022-07-31"), famous_for: ["status of liberty", "food"], mayor: { name: "Michael Bloomberg", party: "I"}})
+db.towns.insert({name: "Portland", popujatiuon: 528000, last_sensus: ISODate("2022-07-20"), famous_for: ["beer", "food"], mayor: { name: "Sam Adams", party: "D"}})
+
+db.towns.remove({"mayor.party": null})
+db.towns.remove({})
+show collections
+
+
+

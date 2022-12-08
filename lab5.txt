@@ -1,0 +1,40 @@
+docker exec -it mongodb mongosh
+
+show dbs
+use learn
+db.unicorns.insert({name: 'Aurora', gender: 'f', weight: 450})
+show collections
+db.unicorns.find()
+db.unicorns.renameCollection('unics')
+db.unics.stats()
+db.unics.drop()
+db.dropDatabase()
+
+
+1. 
+document = {name: 'Dunx', dob: new Date(1976, 6, 18, 18, 18), loves: ['grape', 'watermelon'], weight: 704, gendergender: 'm', vampires: 165}
+db.unicorns.insert(document)
+
+2.
+db.unicorns.find({gender: 'm'})
+db.unicorns.find({gender: 'f'})
+db.unicorns.find({gender: 'f'}).limit(3).sort({name:1})
+
+db.unicorns.findOne({gender: 'f', loves: 'carrot'})
+db.unicorns.find({gender: 'f', loves: 'carrot'}).limit(1)
+
+3.
+db.unicorns.find({gender: 'm'}, {dob: 0, _id: 0})
+
+4.
+db.unicorns.find().sort({$natural: -1})
+
+5.
+db.unicorns.find({}, {loves: {$slice: 1}, _id: 0})
+db.unicorns.find({gender: 'f', weight: {$gt: 500, $lt: 700}}, {_id: 0})
+
+6.
+db.unicorns.find({gender: 'm', weight: {$gt: 500}, loves: {$all: ['grape','lemon']}}, {_id: 0})
+
+7.
+db.unicorns.find({vampires: {$exists: false}})
